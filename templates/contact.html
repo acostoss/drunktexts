@@ -1,0 +1,120 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1 class="display-5">Tech Calls</h1>
+
+    {% if success %}
+
+        {%if errmsg%}
+            <div class="card card-inverse card-danger text-xs-center">
+                <div class="card-block">
+                    <p class="card-title">{{ data }}</p>
+                </div>
+            </div>
+            <div class="card-deck-wrapper">
+                <div class="card-deck">
+                    <div class="card card-inverse card-danger">
+                        <div class="card-block">
+                            <h3 class="card-title">Error</h3>
+                            <p class="card-text">
+                                {{errmsg}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card card-inverse card-danger">
+                        <div class="card-block">
+                            <h3 class="card-title">Headings</h3>
+                            <p class="card-text">
+                                Sender: {{sender}}
+                                <br />
+                                Subject: {{subject}}
+                                <br />
+                                Priority: {{priority}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <div class="card card-inverse card-danger">
+                <div class="card-block">
+                    <h3 class="card-title">Message Content</h3>
+                    <p class="card-text">{{ email|safe }}</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="card card-inverse card-success text-xs-center">
+                <div class="card-block">
+                    <p class="card-text">{{ data }}</p>
+                </div>
+            </div>
+        {% endif %}
+
+    {% else %}
+
+        <p>
+            Please fill out the following form and click Send to turn in your Tech Call.
+        </p>
+        <form action="{{ url_for('contact') }}" id="contact" method=post>
+            {{ form.hidden_tag() }}
+
+            <div class="row">
+                {% if form.name.errors %}
+                    <div class="form-group col-xs-6 has-danger">
+                {% else %}
+                    <div class="form-group col-xs-6">
+                {% endif %}
+                    {{ form.name.label }}
+                    {{ form.name (class="form-control", placeholder="Firstname Lastname")}}
+                    {% for message in form.name.errors %}
+                        <div class="form-control-feedback">{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% if form.email.errors %}
+                    <div class="form-group col-xs-6 has-danger">
+                {% else %}
+                    <div class="form-group col-xs-6">
+                {% endif %}
+                    {{ form.email.label }}
+                    {{ form.email (class="form-control", placeholder="firstname.lastname@bowlandcenters.com")}}
+                    {% for message in form.email.errors %}
+                        <div class="form-control-feedback">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {{ form.priority.label }}
+            {{ form.priority (class="form-control")}}
+            <div class="form-group" id="checks">
+            {{ form.timesChecks.label}}
+            {{ form.timesChecks (class="checkbox")}}
+            </div>
+            {% if form.subject.errors %}
+                <div class="form-group has-danger">
+            {% else %}
+                <div class="form-group">
+            {% endif %}
+                {{ form.subject.label }}
+                    {{ form.subject (class="form-control", placeholder="A short description of the issue you're encountering")}}
+                {% for message in form.subject.errors %}
+                    <div class="form-control-feedback">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% if form.message.errors %}
+                <div class="form-group has-danger">
+            {% else %}
+                <div class="form-group">
+            {% endif %}
+                {{ form.message.label }}
+                {{ form.message (class="form-control", placeholder="A detailed description of the issue you're encountering, what you expected to happen, what didnt happen, and how to replicate it.")}}
+                {% for message in form.message.errors %}
+                    <div class="form-control-feedback">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {{ form.submit (class="btn btn-primary  btn-lg btn-block")}}
+        </form>
+
+    {% endif %}
+{% endblock %}

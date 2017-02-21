@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tech Call Portal</title>
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="static/css/style.css?v=2">
+    </head>
+    <body>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div id="wait">
+            <h3>Sending Tech Call</h3>
+            <img src="static/img/email.png" />
+        </div>
+        <script src="static/js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+
+                $("#priority").on("change",function(){
+                    if ($(this).val() == 1) {
+                        $("#checks").css('display','block');
+                        $("#message").val("");
+                    } else if ($(this).val() == 2) {
+                        $("#checks").css('display','none');
+                        $("#message").val("");
+                    } else if ($(this).val() == 3) {
+                        $("#checks").css('display','none');
+                        $("#message").val("What happened:\nDate of Incident:\nTime of Incident:\nCamera #:\nLane Number or location:\nTime:\nWere they injured:\nDid they continue to bowl:\nWere they drinking:\n\nPlease email any scores and incident report to Lisa Ciniello at the home office ");
+                        $("#message").height("48px");
+                        $("#message").height( $("#message")[0].scrollHeight );
+                    } else if ($(this).val() == 4) {
+                        $("#checks").css('display','none');
+                        $("#message").val("Name of key requested:\nIf you have multiple printers, where should it print?:\nWhat is the cost of the product?:\nRequested Price:\nDates & times available:\n");
+                        $("#message").height("48px");
+                        $("#message").height( $("#message")[0].scrollHeight );
+                    }
+                });
+            });
+            $('#contact').submit(function() {
+                $('#wait').show();
+            });
+        </script>
+    </body>
+</html>

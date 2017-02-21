@@ -1,0 +1,16 @@
+[general]
+pagerdutyApiKey = 
+lowServiceKey = 
+highServiceKey = 
+appSecret = whateverYouWantItToBe
+mailServer = smtp.office365.com
+mailPort = 587
+mailUseSSL = False
+mailUseTLS = True
+mailUsername = emailYoureSendingFrom@example.com
+mailPassword = password~
+mailRecipient = emailYoureSendingTo@example.com
+triggerIncident = True
+sendEmail = True
+errorMessage = Error sending email, error information below. Please reach out to the IT Helpdesk for assistance.
+successMessage = Thank you for your tech call. We'll get back to you shortly.
